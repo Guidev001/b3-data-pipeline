@@ -33,10 +33,12 @@ def job():
         logging.error(f"Erro ao executar o job: {e}", exc_info=True)
 
 
-schedule.every().day.at("10:00").do(job)
+job()
 
-logging.info("Agendamento iniciado. Aguardando execução diária às 10h...")
-
-while True:
-    schedule.run_pending()
-    time.sleep(60)  # Verifica a cada minuto
+# schedule.every().day.at("10:00").do(job)
+#
+# logging.info("Agendamento iniciado. Aguardando execução diária às 10h...")
+#
+# while True:
+#     schedule.run_pending()
+#     time.sleep(60)  # Verifica a cada minuto
