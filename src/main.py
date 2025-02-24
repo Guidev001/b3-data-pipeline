@@ -1,3 +1,5 @@
+import os
+
 from scraping.scraper import get_b3_data
 from storage.s3_manager import upload_to_s3
 from etl.transform import clean_data, save_parquet
@@ -19,8 +21,9 @@ def job():
     s3_path = f"raw/{date_str}/{filename}"
     upload_to_s3(filename, s3_path)
 
+    os.remove(filename)
+
 schedule.every().day.at("10:00").do(job)
-schedule.every().day.at("18:00").do(job)
 
 while True:
     schedule.run_pending()
