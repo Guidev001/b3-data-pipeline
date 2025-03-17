@@ -7,9 +7,9 @@ def clean_data(df):
         df["part"] = pd.to_numeric(df["part"].str.replace(",", "."), errors="coerce")
 
     if "theoricalQty" in df.columns:
-        df["theoricalQty"] = pd.to_numeric(df["theoricalQty"].str.replace(",", "."), errors="coerce")
+        df["theoricalQty"] = df["theoricalQty"].astype(str).str.replace(".", "").astype(float)
 
-    print("✅ Dados limpos")
+    print("✅ Dados limpos com sucesso")
     return df
 
 def save_parquet(df, filename):

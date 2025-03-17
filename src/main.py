@@ -39,4 +39,4 @@ logging.info("Agendamento iniciado. Aguardando execução diária às 10h...")
 
 while True:
     schedule.run_pending()
-    time.sleep(60)  # Verifica a cada minuto
+    time.sleep(1)

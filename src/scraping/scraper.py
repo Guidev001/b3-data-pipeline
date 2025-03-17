@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import requests
 import pandas as pd
 
@@ -19,8 +21,17 @@ def get_b3_data():
 
 def process_data(data):
     print("🚀 Processando os dados")
+    header_date = data.get("header", {}).get("date", "")
+
+    try:
+        reference_date = datetime.strptime(header_date, "%d/%m/%y").strftime('%Y-%m-%d')
+    except ValueError:
+        print("⚠️ Erro ao converter a data, usando a data de hoje como fallback.")
+        reference_date = datetime.today().strftime('%Y-%m-%d')
+
     records = data.get("results", [])
     print(f"✅ {len(records)} registros processados")
     df = pd.DataFrame(records)
+    df["reference_date"] = reference_date
     print("✅ Dados processados com sucesso")
     return df
